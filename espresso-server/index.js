@@ -29,10 +29,10 @@ async function run() {
         await client.connect();
 
         const database = client.db("espressoDB");
-        const userCollection = database.collection("coffees");
+        const coffeeCollection = database.collection("coffees");
 
         app.get('/coffees', async (req, res) => {
-            const cursor = userCollection.find()
+            const cursor = coffeeCollection.find()
             const result = await cursor.toArray()
             console.log(result);
             res.send(result);
@@ -41,34 +41,37 @@ async function run() {
         app.get('/coffees/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
-            const user = await userCollection.findOne(query);
-            res.send(user);
+            const coffee = await coffeeCollection.findOne(query);
+            res.send(coffee);
+            
         })
 
         app.post('/coffees', async (req, res) => {
             console.log(req.body);
-            const newUser = req.body;
-            const result = await userCollection.insertOne(newUser);
+            const newCoffee = req.body;
+            const result = await coffeeCollection.insertOne(newCoffee);
             res.send(result);
-            // res.json({ message: 'User added successfully' });
         })
 
         app.put('/coffees/:id', async (req, res) => {
             const id = req.params.id;
             console.log('Frontend requested to update user with ID:', id);
-            const user = req.body;
-            console.log(id, user);
+            const coffee = req.body;
+            console.log(id, coffee);
             const filter = { _id: new ObjectId(id) };
-            const updatedUser = {
+            const updatedCoffee = {
                 $set: {
-                    name: user.name,
-                    email: user.email,
-                    phone: user.phone,
-                    password: user.password,
+                    name: coffee.name,
+                    supplier: coffee.supplier,
+                    category: coffee.category,
+                    price: coffee.price,
+                    taste: coffee.taste,
+                    details: coffee.details,
+                    photo: coffee.photo,
                 }
             }
             const options = { upsert: true };
-            const result = await userCollection.updateOne(filter, updatedUser, options);
+            const result = await coffeeCollection.updateOne(filter, updatedCoffee, options);
             res.json({ message: 'User updated successfully' });
         })
 
@@ -76,7 +79,7 @@ async function run() {
             const id = req.params.id;
             console.log('Fronted requested: please delete', id, 'this user from mongodb');
             const query = { _id: new ObjectId(id) };
-            const result = await userCollection.deleteOne(query);
+            const result = await coffeeCollection.deleteOne(query);
             console.log('Requested user', id, 'deleted successfully');
             res.send(result);
         })

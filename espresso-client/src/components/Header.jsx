@@ -1,13 +1,11 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <div>
       <Helmet>
-        <title>
-          Home Page
-        </title>
+        <title>Home Page</title>
       </Helmet>
       <div
         className=""
@@ -30,6 +28,17 @@ const Header = () => {
             </div>
           </div>
         </Link>
+      </div>
+
+      <div className="max-w-7xl mx-auto my-10">
+        <ul className="space-x-2">
+          <NavLink to="/">
+            <button className="btn btn-ghost">Home</button>
+          </NavLink>
+          <NavLink to="/add_coffee">
+            <button className="btn btn-ghost">Add Coffee</button>
+          </NavLink>
+        </ul>
       </div>
     </div>
   );
