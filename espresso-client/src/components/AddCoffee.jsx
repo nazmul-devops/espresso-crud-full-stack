@@ -17,7 +17,7 @@ const AddCoffee = () => {
     const coffee = { name, supplier, category, price, taste, details, photo };
     console.log(coffee);
 
-    fetch("http://localhost:5001/coffees", {
+    fetch("https://tob1iaiez7.execute-api.us-east-1.amazonaws.com/coffees/", {
       method: "POST",
       headers: {
         "content-type": "application/json",

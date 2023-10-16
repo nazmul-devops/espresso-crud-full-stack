@@ -17,7 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:5001/coffees"),
+        loader: () =>
+          fetch(
+            "https://tob1iaiez7.execute-api.us-east-1.amazonaws.com/coffees"
+          ),
       },
       {
         path: "/add_coffee",
@@ -27,7 +30,9 @@ const router = createBrowserRouter([
         path: "/update_coffee/:id",
         element: <UpdateCoffee></UpdateCoffee>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5001/coffees/${params.id}`),
+          fetch(
+            `https://tob1iaiez7.execute-api.us-east-1.amazonaws.com/coffees/${params.id}`
+          ),
       },
     ],
   },

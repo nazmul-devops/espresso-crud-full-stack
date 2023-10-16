@@ -3,7 +3,8 @@ import Footer from "./Footer";
 import { Link, useLoaderData } from "react-router-dom";
 
 const Home = () => {
-  const coffees = useLoaderData();
+  const response = useLoaderData();
+  const coffees = JSON.parse(response.body);
   console.log(coffees);
   return (
     <div>
